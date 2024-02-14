@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Popular CPU Core counts</title>
+  <style>
+    .sub {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    text-align: center;
+    left:150px;
+
+  }
+</style>
+</head>
+<body>
+  <svg id="custom-graph" width="800" height="800"></svg>
+
+  <script>
+    // Data
+    const data = [
+      { cpu: '2 CPUs', usage: 6.59 },
+      { cpu: '4 CPUs', usage: 22.99 },
+      { cpu: '6 CPUs', usage: 31.42 },
+      { cpu: '8 CPUs', usage: 20.81 },
+      { cpu: 'Other', usage: 18.18 }
+    ];
+
+    // SVG Setup
+    const svg = document.getElementById('custom-graph');
+    const width = svg.getAttribute('width');
+    const height = svg.getAttribute('height');
+    const centerX = width / 2;
+    const centerY = height / 2;
+    const radiusScale = 0.2 * Math.min(width, height) / Math.max(...data.map(d => d.usage)); // Adjusted radius scale
+
+    // Colors for circles
+    const colors = ['#ff7f0e', '#1f77b4', '#2ca02c', '#d62728', '#9467bd'];
+
+    // Draw title
+    const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    title.setAttribute('x', centerX);
+    title.setAttribute('y', 30); // Position at 30 units from the top
+    title.setAttribute('text-anchor', 'middle');
+    title.setAttribute('font-family', 'Arial');
+    title.setAttribute('font-size', '20');
+    title.textContent = 'Popular CPU Core Counts';
+    svg.appendChild(title);
+
+    // Draw circles
+    let currentAngle = -Math.PI / 2; // Start from the top
+    const separationAngle = 2 * Math.PI / data.length; // Angle between each circle
+    data.forEach((d, i) => {
+      const usageRadius = d.usage * radiusScale;
+
+      // Calculate position for each circle
+      const x = centerX + Math.cos(currentAngle) * (width / 4);
+      const y = centerY + Math.sin(currentAngle) * (height / 4);
+
+      const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      circle.setAttribute('cx', x);
+      circle.setAttribute('cy', y);
+      circle.setAttribute('r', usageRadius + 3); // Increased radius
+      circle.setAttribute('fill', colors[i]);
+      svg.appendChild(circle);
+
+      // Add label
+      const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      label.setAttribute('x', x);
+      label.setAttribute('y', y);
+      label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('alignment-baseline', 'middle');
+      label.setAttribute('font-family', 'Arial');
+      label.setAttribute('font-size', '14');
+      label.textContent = d.cpu;
+      svg.appendChild(label);
+
+      currentAngle += separationAngle; // Update the angle for the next circle
+    });
+  </script>
+    <div class="sub">This is a unique way I tried to better visualize the CPU core counts<br>
+      for a typical PC in the Steam Hardware Survey.</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CPU Marketshare Over Time</title>
+  <style>
+      .sub {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 20px;
+      position: absolute;
+      text-align: center;
+      left:150px;
+
+    }
+  </style>
+  <!-- Load Google Charts -->
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', {'packages':['corechart']});
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart);
+
+    // Callback that creates and populates a data table,
+    // instantiates the stacked column chart, passes in the data and
+    // draws it.
+    function drawChart() {
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Month');
+      data.addColumn('number', 'AMD');
+      data.addColumn('number', 'Intel');
+      data.addRows([
+        ['January', 25.5, 74.5],
+        ['February', 33.3, 66.7],
+        ['March', 32.9, 67.1],
+        ['April', 32.6, 67.4],
+        ['June', 33.9, 66.1],
+        ['July', 34.2, 65.8],
+        ['August', 32.1, 67.9],
+        ['September', 26.2, 73.8],
+        ['October', 34.7, 65.3],
+        ['November', 34.4, 65.6],
+        ['December', 35.28, 64.72]
+      ]);
+
+      // Set chart options
+      var options = {
+        title: 'CPU Marketshare Over Time',
+        isStacked: true,
+        legend: { position: 'bottom' },
+        colors: ['#ef0707', '#00C7FD']
+      };
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+<body>
+  <!--Div that will hold the chart-->
+  <div id="chart_div" style="width: 900px; height: 500px;"></div>
+</body>
+<div class="sub">This is a graph that showcases the  overall marketshare of Intel & AMD CPUs <br>
+                The data is gathered throughout the year of 2023.</div>
+</html>

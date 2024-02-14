@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PC Video Card Usage by Manufacturer in 2023</title>
+  <style>
+    .sub {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    text-align: center;
+    left:150px;
+
+  }
+</style>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ['Month', 'Nvidia', 'AMD', 'Intel', 'Other'],
+        ['January', 75.8, 14.9, 9, 0.3],
+        ['February', 82.6, 10.8, 6.3, 0.3],
+        ['March', 76.1, 15, 8.6, 0.3],
+        ['April', 76.4, 14.8, 8.6, 0.2],
+        ['June', 76, 15, 8.7, 0.3],
+        ['July', 74.7, 15.9, 9, 0.4],
+        ['August', 74.9, 15.9, 8.8, 0.4],
+        ['September', 77, 14.8, 7.9, 0.3],
+        ['October', 82.2, 11.5, 6, 0.3],
+        ['November', 75.1, 16.2, 8.2, 0.5],
+        ['December', 74.8, 15.96, 8.15, 1.09],
+      ]);
+
+      var options = {
+        title: 'PC Video Card Usage by Manufacturer in 2023',
+        subtitle: 'Data gathered from the Steam Hardware & Software Survey https://store.steampowered.com/hwsurvey/',
+        colors: ['#76b900', '#ef0707', '#00C7FD', '#FFD700'],
+        bars: 'horizontal' // Required for Material Bar Charts.
+      };
+
+      var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+<body>
+  <div id="chart_div" style="position:relative; width: 60%; height: 400px; left:-100px; "></div>
+  <div class="sub">This visualizes the change in Video Card marketshare throughout 2023  <br>
+    Between Nvidia, AMD, Intel, and other Manufacturers.</div>
+</body>
+</html>
